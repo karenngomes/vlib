@@ -9,7 +9,7 @@ class App extends Component {
       <div className="box">
         <div className="box__middle">
           <h1 className="box__title">VLib App</h1>
-          <p>Login</p>
+          <Login />
         </div>
       </div>
     );

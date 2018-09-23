@@ -9,13 +9,15 @@ body {
   display: flex;
   height: 100vh;
 }
+.box__title {
+  text-align: center;
+}
 
 .box__middle {
   background: white;
   opacity: 0.8;
   border-radius: 0.2rem;
   padding: 3.2rem 1.6rem;
-  text-align: center;
   width: 25rem;
 }
 
