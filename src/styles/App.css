@@ -1,0 +1,25 @@
+body {
+  margin: 0 auto;
+}
+
+.box {
+  align-items: center;
+  justify-content: center;
+  background: url('../library.jpg');
+  display: flex;
+  height: 100vh;
+}
+
+.box__middle {
+  background: white;
+  opacity: 0.8;
+  border-radius: 0.2rem;
+  padding: 3.2rem 1.6rem;
+  text-align: center;
+  width: 25rem;
+}
+
+.box__title {
+  line-height: 1;
+  margin: 0 0 1.6rem;
+}
