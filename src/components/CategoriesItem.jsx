@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-const CategoriesItem = ({ match }) => (
-    <div>
-      <h3>ID: {match.params.id}</h3>
-    </div>
-  );
+class CategoriesItem extends Component {
+    state = {
+        query: this.props.location.query
+    }
+
+    constructor(props) {
+        super(props);
+    }
+
+    
+    componentDidMount() {
+        console.log(this.state.query);
+        axios.get(`https://vlibrary.herokuapp.com/v1/book/` + this.state.query)
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
+    render() {
+        
+        return (
+            <div>
+                {console.log(this.props.location)}
+              <h3>ID: {this.props.location.query}</h3>
+            </div>
+          );
+    }
+
+}
 
 export default CategoriesItem;

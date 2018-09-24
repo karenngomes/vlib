@@ -5,7 +5,7 @@ import Home from "../components/Home";
 import Profile from "../components/Profile";
 import Search from "../components/Search";
 import Login from "../components/Login";
-import CategoriesItem from "../components/Categories";
+import CategoriesItem from "../components/CategoriesItem";
 
 const AppRouter = () => {
     return (
@@ -14,10 +14,11 @@ const AppRouter = () => {
             <div>
                 <HeaderMenu />
                 <Route exact path="/" component={Home} />
-                <Route exact path="/categories/:id" component={CategoriesItem} />
+                <Route path="/categories" component={CategoriesItem} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/search" component={Search} />
                 <Route path="/logout" component={Login} />
+
             </div>
         </Router>
      

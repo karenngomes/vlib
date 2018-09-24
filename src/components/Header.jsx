@@ -43,10 +43,12 @@ export default class HeaderMenu extends Component {
         axios.get(`https://vlibrary.herokuapp.com/v1/category`)
         .then(res => {
             res.data.forEach(category => {
-                optionsCategories.push({'key': category.id, 'text': category.name});         
+                optionsCategories.push({'key': category.id, 
+                'text': (
+                    <Link to={{pathname:'/categories/', query: category.id}}>{category.name}</Link>
+                )});         
             });
         })
-
     }
 
     render () {
