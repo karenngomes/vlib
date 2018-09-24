@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Icon, Header } from 'semantic-ui-react';
+import axios from 'axios';
 
 const trigger = (
     <span>
@@ -17,50 +19,47 @@ const trigger = (
       ),
       disabled: true,
     },
-    { key: 'profile', text: 'Meu Perfil' },
+    { 
+        key: 'profile', 
+        text: (
+            <Link to='/profile'>Meu Peril</Link>
+        )
+    },
     { key: 'settings', text: 'Settings' },
-    { key: 'sign-out', text: 'Sair' },
+    { 
+        key: 'sign-out', 
+        text: (
+            <Link to='/logout'>Sair</Link>
+        )
+    }
   ]
 
-class Header extends Component {
-    
+
+let optionsCategories = []
+
+export default class HeaderMenu extends Component {
+
+    componentDidMount() {
+        axios.get(`https://vlibrary.herokuapp.com/v1/category`)
+        .then(res => {
+            res.data.forEach(category => {
+                optionsCategories.push({'key': category.id, 'text': category.name});         
+            });
+        })
+
+    }
+
     render () {
         return (
         <div>
           <Menu>
             <Menu.Item>
-            <Header as='h2'>
-                <Icon name='plug' />
+            <Header as='h3' color='red'>
+                <Icon name='book' />
                 <Header.Content>VLib</Header.Content>
             </Header>
             </Menu.Item>
-            <Dropdown text='Categorias' pointing className='link item'>
-            <Dropdown.Menu>
-                <Dropdown.Header>Categories</Dropdown.Header>
-                <Dropdown.Item>
-                <Dropdown text='Clothing'>
-                    <Dropdown.Menu>
-                    <Dropdown.Header>Mens</Dropdown.Header>
-                    <Dropdown.Item>Shirts</Dropdown.Item>
-                    <Dropdown.Item>Pants</Dropdown.Item>
-                    <Dropdown.Item>Jeans</Dropdown.Item>
-                    <Dropdown.Item>Shoes</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Header>Womens</Dropdown.Header>
-                    <Dropdown.Item>Dresses</Dropdown.Item>
-                    <Dropdown.Item>Shoes</Dropdown.Item>
-                    <Dropdown.Item>Bags</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                </Dropdown.Item>
-                <Dropdown.Item>Home Goods</Dropdown.Item>
-                <Dropdown.Item>Bedroom</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Header>Order</Dropdown.Header>
-                <Dropdown.Item>Status</Dropdown.Item>
-                <Dropdown.Item>Cancellations</Dropdown.Item>
-            </Dropdown.Menu>
-            </Dropdown>
+            <Dropdown item simple text='Categorias' options={optionsCategories} />
             <Menu.Menu position='right'>
                 <noscript>
                     fazer parte de pesquisa
@@ -72,5 +71,3 @@ class Header extends Component {
         );
     }
 }
-
-export default Header;

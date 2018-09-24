@@ -16,7 +16,7 @@ class Login extends Component {
             </Form.Field>
             <Button type='submit' fluid>Entrar</Button>
           </Form>
-          <a href='#'>Criar conta</a>
+          <a>Criar conta</a>
         </div>
         );
     }

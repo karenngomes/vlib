@@ -1,19 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "../components/Header";
+import HeaderMenu from "../components/Header";
 import Home from "../components/Home";
 import Profile from "../components/Profile";
 import Search from "../components/Search";
+import Login from "../components/Login";
+import CategoriesItem from "../components/Categories";
 
 const AppRouter = () => {
     return (
         
         <Router>
             <div>
-                <Header />
+                <HeaderMenu />
                 <Route exact path="/" component={Home} />
+                <Route exact path="/categories/:id" component={CategoriesItem} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/search" component={Search} />
+                <Route path="/logout" component={Login} />
             </div>
         </Router>
      
