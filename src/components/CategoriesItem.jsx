@@ -15,7 +15,7 @@ class CategoriesItem extends Component {
         console.log(this.state.query);
         axios.get(`https://vlibrary.herokuapp.com/v1/book/` + this.state.query)
         .then(res => {
-            console.log(res.data);
+            console.log('data',res.data);
         })
     }
 
