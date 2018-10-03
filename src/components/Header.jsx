@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu, Icon, Header } from "semantic-ui-react";
+import { Dropdown, Menu, Icon, Header, Input } from "semantic-ui-react";
 import axios from "axios";
 
 const trigger = (
@@ -8,8 +8,6 @@ const trigger = (
     <Icon name="user" /> Olá, Pedro
   </span>
 );
-
-
 
 let optionsCategories = [];
 
@@ -53,16 +51,18 @@ export default class HeaderMenu extends Component {
       <div>
         <Menu>
           <Menu.Item>
-            <Link to='/'>
-            <Header as="h3" color="red">
-              <Icon name="book" />
-              <Header.Content>VLib</Header.Content>
-            </Header>
+            <Link to="/">
+              <Header as="h3" color="red">
+                <Icon name="book" />
+                <Header.Content>VLib</Header.Content>
+              </Header>
             </Link>
           </Menu.Item>
           <Dropdown item simple text="Categorias" options={optionsCategories} />
           <Menu.Menu position="right">
-            <noscript>fazer parte de pesquisa</noscript>
+            <Menu.Item>
+              <Input icon="search" placeholder="Pesquisa por um livro" />
+            </Menu.Item>
             <Dropdown item simple trigger={trigger} options={this.options} />
           </Menu.Menu>
         </Menu>

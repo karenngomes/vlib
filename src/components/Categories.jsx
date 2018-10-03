@@ -6,7 +6,6 @@ import { Image, Container } from "semantic-ui-react";
 export default class Categories extends Component {
   state = {
     category: [],
-    search: [],
     open: false,
     infoBook: {},
     idBook: ""
@@ -16,8 +15,8 @@ export default class Categories extends Component {
     axios
       .get(`http://vlibrary.herokuapp.com/v1/book/filter/calculo`)
       .then(res => {
-        console.log(this.state.search);
-        this.setState({ search: res.data.items });
+        console.log(this.state.category);
+        this.setState({ category: res.data.items });
       });
   }
   handleJSON = book => {
@@ -32,14 +31,14 @@ export default class Categories extends Component {
   };
 
   render() {
-    const { search, open, infoBook, idBook } = this.state;
+    const { category, open, infoBook, idBook } = this.state;
     return (
       <Container>
         <Image.Group
           size="small"
           style={{ display: "flex", overflowX: "scroll" }}
         >
-          {search.map((book, index) => (
+          {category.map((book, index) => (
             <Image
               onClick={() => this.handleJSON(book)}
               key={index}

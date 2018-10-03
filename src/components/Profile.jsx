@@ -54,9 +54,6 @@ class Profile extends Component {
             <Button>Gerar boleto</Button>
           </Link>
         </Header>
-        perfil: fotinea, nome, email, instituição (ufal) livros: lista de livros
-        alugados (mesmo modal sem a opção alugar - botão desativado) multas:
-        valor
       </Container>
     );
   }
