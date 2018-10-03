@@ -4,9 +4,10 @@ import HeaderMenu from "../components/Header";
 import Home from "../components/Home";
 import Profile from "../components/Profile";
 import Search from "../components/Search";
-import App from "../components/App";
+import Login from "../components/Login";
 import Boleto from "../components/Boleto";
 import CategoriesItem from "../components/CategoriesItem";
+import SignUp from "../components/SignUp";
 
 class AppRouter extends Component {
   state = {
@@ -40,11 +41,14 @@ class AppRouter extends Component {
       </Router>
     ) : (
       <Router>
-        <Route
-          exact
-          path="/"
-          render={() => <App handleChangeSignIn={handleChangeSignIn} />}
-        />
+        <div>
+          <Route
+            exact
+            path="/"
+            render={() => <Login handleChangeSignIn={handleChangeSignIn} />}
+          />
+          <Route path="/create" component={SignUp} />
+        </div>
       </Router>
     );
   }
