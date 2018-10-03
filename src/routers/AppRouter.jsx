@@ -8,11 +8,25 @@ import Login from "../components/Login";
 import Boleto from "../components/Boleto";
 import CategoriesItem from "../components/CategoriesItem";
 import SignUp from "../components/SignUp";
+import SignOut from "../components/SignOut";
 
 class AppRouter extends Component {
+
   state = {
-    signIn: true
+    signIn: false,
+    handleChangeSignIn: this.handleChangeSignIn,
+    handleChangeSignOut: this.handleChangeSignOut
   };
+
+  componentDidMount() {
+    let user = JSON.parse(localStorage.getItem("user"))
+    console.log(user);
+    if(user == null) {
+      this.setState({signIn: false,user: null})
+    }else {
+      this.setState({signIn:true,user:user})
+    }
+  }
 
   handleChangeSignIn = () => {
     this.setState({ signIn: true });
@@ -23,16 +37,17 @@ class AppRouter extends Component {
   };
 
   render() {
-    const { signIn, handleChangeSignIn, handleChangeSignOut } = this.state;
+    const { signIn , handleChangeSignIn, handleChangeSignOut } = this.state;
     return signIn ? (
       <Router>
         <div>
-          <HeaderMenu handleChangeSignOut={handleChangeSignOut} />
+          <HeaderMenu handleChangeSignOut={handleChangeSignOut}/>
           <Route exact path="/" component={Home} />
           <Route path="/categories" component={CategoriesItem} />
           <Route path="/profile" component={Profile} />
           <Route path="/search" component={Search} />
           <Route path="/boleto" component={Boleto} />
+          <Route path="/signout" component={SignOut} />
         </div>
       </Router>
     ) : (
@@ -41,9 +56,9 @@ class AppRouter extends Component {
           <Route
             exact
             path="/"
-            render={() => <Login handleChangeSignIn={handleChangeSignIn} />}
+            render={() => <Login handleChangeSignIn={handleChangeSignIn}/>}
           />
-          <Route path="/create" component={SignUp} />
+          <Route path="/signup" component={SignUp} />
         </div>
       </Router>
     );
