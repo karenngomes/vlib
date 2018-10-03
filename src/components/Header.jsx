@@ -23,7 +23,6 @@ const options = [
     key: "profile",
     text: <Link to="/profile">Meu Peril</Link>
   },
-  { key: "settings", text: "Settings" },
   {
     key: "sign-out",
     text: <Link to="/logout">Sair</Link>
@@ -53,10 +52,13 @@ export default class HeaderMenu extends Component {
       <div>
         <Menu>
           <Menu.Item>
+            <Link to='/'>
             <Header as="h3" color="red">
               <Icon name="book" />
               <Header.Content>VLib</Header.Content>
             </Header>
+            </Link>
+            
           </Menu.Item>
           <Dropdown item simple text="Categorias" options={optionsCategories} />
           <Menu.Menu position="right">

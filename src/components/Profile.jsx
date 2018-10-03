@@ -20,7 +20,7 @@ class Profile extends Component {
         <Item.Group>
           <Header as="h2">Informações básicas</Header>
           <Item>
-            <Item.Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
+          <Icon name='user' size='massive' />
 
             <Item.Content>
               <Item.Header as="a">Nome</Item.Header>
