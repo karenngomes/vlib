@@ -9,29 +9,30 @@ const trigger = (
   </span>
 );
 
-const options = [
-  {
-    key: "user",
-    text: (
-      <span>
-        Signed in as <strong>Bob Smith</strong>
-      </span>
-    ),
-    disabled: true
-  },
-  {
-    key: "profile",
-    text: <Link to="/profile">Meu Peril</Link>
-  },
-  {
-    key: "sign-out",
-    text: <Link to="/logout">Sair</Link>
-  }
-];
+
 
 let optionsCategories = [];
 
 export default class HeaderMenu extends Component {
+  options = [
+    {
+      key: "user",
+      text: (
+        <span>
+          Signed in as <strong>Bob Smith</strong>
+        </span>
+      ),
+      disabled: true
+    },
+    {
+      key: "profile",
+      text: <Link to="/profile">Meu Peril</Link>
+    },
+    {
+      key: "sign-out",
+      text: <a onClick={this.props.handleChangeSignOut}>Sair</a>
+    }
+  ];
   componentDidMount() {
     axios.get(`https://vlibrary.herokuapp.com/v1/category`).then(res => {
       res.data.forEach(category => {
@@ -58,12 +59,11 @@ export default class HeaderMenu extends Component {
               <Header.Content>VLib</Header.Content>
             </Header>
             </Link>
-            
           </Menu.Item>
           <Dropdown item simple text="Categorias" options={optionsCategories} />
           <Menu.Menu position="right">
             <noscript>fazer parte de pesquisa</noscript>
-            <Dropdown item simple trigger={trigger} options={options} />
+            <Dropdown item simple trigger={trigger} options={this.options} />
           </Menu.Menu>
         </Menu>
       </div>

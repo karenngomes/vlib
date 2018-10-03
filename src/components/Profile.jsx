@@ -20,14 +20,14 @@ class Profile extends Component {
         <Item.Group>
           <Header as="h2">Informações básicas</Header>
           <Item>
-          <Icon name='user' size='massive' />
+            <Icon name="user" size="massive" />
 
             <Item.Content>
               <Item.Header as="a">Nome</Item.Header>
-              <Item.Meta>meta</Item.Meta>
               <Item.Description>Email</Item.Description>
-              <Item.Description>Instituição</Item.Description>
-              <Item.Extra>Extra</Item.Extra>
+              <Item.Description>
+                Universidade Federal de Alagoas
+              </Item.Description>
             </Item.Content>
           </Item>
         </Item.Group>

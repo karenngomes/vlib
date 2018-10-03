@@ -11,7 +11,7 @@ import SignUp from "../components/SignUp";
 
 class AppRouter extends Component {
   state = {
-    signIn: false
+    signIn: true
   };
 
   handleChangeSignIn = () => {
@@ -27,12 +27,8 @@ class AppRouter extends Component {
     return signIn ? (
       <Router>
         <div>
-          <HeaderMenu />
-          <Route
-            exact
-            path="/"
-            render={() => <Home handleChangeSignOut={handleChangeSignOut} />}
-          />
+          <HeaderMenu handleChangeSignOut={handleChangeSignOut} />
+          <Route exact path="/" component={Home} />
           <Route path="/categories" component={CategoriesItem} />
           <Route path="/profile" component={Profile} />
           <Route path="/search" component={Search} />
