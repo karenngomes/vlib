@@ -1,34 +1,28 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 class CategoriesItem extends Component {
-    state = {
-        query: this.props.location.query
-    }
+  state = {
+    query: this.props.location.query
+  };
 
-    constructor(props) {
-        super(props);
-    }
+  componentDidMount() {
+    //console.log(this.state.query);
+    axios
+      .get(`https://vlibrary.herokuapp.com/v1/book/` + this.state.query)
+      .then(res => {
+        console.log("data", res.data);
+      });
+  }
 
-    
-    componentDidMount() {
-        console.log(this.state.query);
-        axios.get(`https://vlibrary.herokuapp.com/v1/book/` + this.state.query)
-        .then(res => {
-            console.log('data',res.data);
-        })
-    }
-
-    render() {
-        
-        return (
-            <div>
-                {console.log(this.props.location)}
-              <h3>ID: {this.props.location.query}</h3>
-            </div>
-          );
-    }
-
+  render() {
+    return (
+      <div>
+        {console.log(this.props.location)}
+        <h3>ID: {this.props.location.query}</h3>
+      </div>
+    );
+  }
 }
 
 export default CategoriesItem;

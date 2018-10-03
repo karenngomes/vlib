@@ -4,11 +4,7 @@ import "../styles/App.css";
 import { Button, Form } from "semantic-ui-react";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    console.log(this.props);
     return (
       <div className="box">
         <div className="box__middle">

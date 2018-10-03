@@ -15,15 +15,12 @@ export default class Categories extends Component {
     axios
       .get(`http://vlibrary.herokuapp.com/v1/book/filter/calculo`)
       .then(res => {
-        console.log(this.state.category);
         this.setState({ category: res.data.items });
       });
   }
   handleJSON = book => {
-    //const info = JSON.stringify(book.volumeInfo);
-    //console.log(book.volumeInfo);
     this.setState({ infoBook: book.volumeInfo, open: true, idBook: book.id });
-    console.log(this.state.infoBook);
+    //console.log(this.state.infoBook);
   };
 
   close = () => {

@@ -14,7 +14,7 @@ class Search extends Component {
     axios
       .get(`http://vlibrary.herokuapp.com/v1/book/filter/calculo`)
       .then(res => {
-        console.log(this.state.search);
+        //console.log(this.state.search);
         this.setState({ search: res.data.items });
       });
   }
