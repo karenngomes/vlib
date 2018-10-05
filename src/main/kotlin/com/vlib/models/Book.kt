@@ -23,7 +23,7 @@ data class Book (
 
         val publisher : String = "",
 
-        val publishedDate : Date,
+        val publishedDate : Date? = null,
 
         val authors : List<String> = listOf(),
 

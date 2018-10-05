@@ -1,10 +1,10 @@
 package com.vlib.repositories
 
-import com.vlib.models.Book
+import com.vlib.models.User
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface BookRepository : MongoRepository<Book, String> {
-    fun findByCategories_Id(categoryId : String) : List<Book>
+interface UserRepository : MongoRepository<User, String> {
+    fun findByEmail(email : String) : User?
 }
