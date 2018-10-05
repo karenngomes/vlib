@@ -7,7 +7,7 @@ import axios from "axios";
 class Login extends Component {
   constructor(props) {
     super(props);
-    
+    console.log(localStorage.getItem("user"));
     this.state = {
         email: '',
         password: '',
@@ -25,7 +25,6 @@ class Login extends Component {
 
   handleSubmit(e) {
       e.preventDefault();
-      console.log("Aqui");
       this.setState({ submitted: true });
       const { email, password } = this.state;
 
@@ -33,10 +32,14 @@ class Login extends Component {
         "email" : email,
         "password" : password
       }
-      axios.post("http://vlibrary.herokuapp.com/v1/client/signin", data)
+      axios.post("http://vlibrary.herokuapp.com/v1/user/signin", data)
       .then(res => {
         localStorage.setItem("user",JSON.stringify(res.data))
-        console.log(res.data)
+        console.log(localStorage.getItem("user"));
+        this.props.handleChangeSignIn();
+      })
+      .catch(error => {
+        alert("Ñão foi possivel efetuar o login!");
       });
   }
 
@@ -58,7 +61,7 @@ class Login extends Component {
               Entrar
             </Button>
           </Form>
-          <Link to="/create">Criar conta</Link>
+          <Link to="/signup">Criar conta</Link>
         </div>
       </div>
     );

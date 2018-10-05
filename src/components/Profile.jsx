@@ -11,6 +11,10 @@ import {
 } from "semantic-ui-react";
 
 class Profile extends Component {
+  state = {
+    user : JSON.parse(localStorage.getItem("user"))
+  }
+
   render() {
     return (
       <Container>
@@ -20,8 +24,8 @@ class Profile extends Component {
             <Icon name="user" size="massive" />
 
             <Item.Content>
-              <Item.Header as="a">Nome</Item.Header>
-              <Item.Description>Email</Item.Description>
+              <Item.Header as="a">{this.state.user.name}</Item.Header>
+              <Item.Description>{this.state.user.email}</Item.Description>
               <Item.Description>
                 Universidade Federal de Alagoas
               </Item.Description>
@@ -30,25 +34,23 @@ class Profile extends Component {
         </Item.Group>
         <Divider />
         <Header as="h2">Livros Alocados</Header>
-        <Image.Group size="small" style={{ overflowX: "scroll" }}>
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-        </Image.Group>
+        {this.state.user.rentedBooks.length > 0 ? 
+          <Image.Group size="small" style={{ overflowX: "scroll" }}>
+            { this.state.user.rentedBooks.map((rentedBook, index) => (
+            <Image src={rentedBook.book.thumbnail} />
+            ))}
+          </Image.Group>
+          : <Item.Content><Item.Description>Você não possui nenhum livro alugado.</Item.Description></Item.Content>
+        }
+        
         <Divider />
         <Header as="h2">
           <Icon.Group size="large">
             <Icon name="payment" />
           </Icon.Group>
-          Multa total:
-          <Link to="/boleto">
-            <Button>Gerar boleto</Button>
+          Multa total: R$ {this.state.user.totalTax.toFixed(2)} 
+          <Link to={{ pathname: "/boleto", tax: this.state.user.totalTax, name: this.state.user.name }}>
+            <Button style={{marginLeft: 2 + 'em'}} >Gerar boleto</Button>
           </Link>
         </Header>
       </Container>

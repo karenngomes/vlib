@@ -11,20 +11,23 @@ import SignUp from "../components/SignUp";
 import SignOut from "../components/SignOut";
 
 class AppRouter extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChangeSignIn = this.handleChangeSignIn.bind(this);
+    this.handleChangeSignOut = this.handleChangeSignOut.bind(this);
+  }
 
   state = {
     signIn: false,
-    handleChangeSignIn: this.handleChangeSignIn,
-    handleChangeSignOut: this.handleChangeSignOut
   };
 
   componentDidMount() {
     let user = JSON.parse(localStorage.getItem("user"))
-    console.log(user);
-    if(user == null) {
-      this.setState({signIn: false,user: null})
+
+    if(user != null) {
+      this.handleChangeSignIn()
     }else {
-      this.setState({signIn:true,user:user})
+      this.handleChangeSignOut()
     }
   }
 
@@ -37,17 +40,19 @@ class AppRouter extends Component {
   };
 
   render() {
-    const { signIn , handleChangeSignIn, handleChangeSignOut } = this.state;
+    const { signIn } = this.state;
     return signIn ? (
       <Router>
         <div>
-          <HeaderMenu handleChangeSignOut={handleChangeSignOut}/>
+          <HeaderMenu/>
           <Route exact path="/" component={Home} />
           <Route path="/categories" component={CategoriesItem} />
           <Route path="/profile" component={Profile} />
           <Route path="/search" component={Search} />
           <Route path="/boleto" component={Boleto} />
-          <Route path="/signout" component={SignOut} />
+          <Route path="/signout" 
+            render={() => <SignOut handleChangeSignOut={this.handleChangeSignOut}/>}
+          />
         </div>
       </Router>
     ) : (
@@ -56,9 +61,11 @@ class AppRouter extends Component {
           <Route
             exact
             path="/"
-            render={() => <Login handleChangeSignIn={handleChangeSignIn}/>}
+            render={() => <Login handleChangeSignIn={this.handleChangeSignIn}/>}
           />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/signup" 
+            render={() => <SignUp handleChangeSignIn={this.handleChangeSignIn}/>}
+          />
         </div>
       </Router>
     );

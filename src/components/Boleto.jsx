@@ -7,8 +7,15 @@ export default class ModalRent extends Component {
     boleto: ""
   };
 
+  
+
   componentDidMount() {
-    axios.get("https://vlib-node.herokuapp.com/boleto").then(res => {
+    const data = {
+      tax: this.props.location.tax,
+      name: this.props.location.name
+    };
+
+    axios.post("https://vlib-node.herokuapp.com/boleto",data).then(res => {
       this.setState({ boleto: res.data });
     });
   }

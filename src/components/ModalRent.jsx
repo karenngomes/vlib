@@ -1,30 +1,46 @@
 import React, { Component } from "react";
-import { Modal, Button } from "semantic-ui-react";
+import { Modal, Button, Item, ItemDescription, ItemContent,Image } from "semantic-ui-react";
+import axios from "axios";
 
 export default class ModalRent extends Component {
-  state = {
-    idBook: "",
-    user: {
-      id: 1
+
+  handleRent(book) {
+    const data = {
+      book : book,
+      user : JSON.parse(localStorage.getItem("user"))
     }
-  };
+
+    axios.post("https://vlibrary.herokuapp.com/v1/rented",data)
+      .then(res => {
+        if(res.status == 201) {
+          axios.get("https://vlibrary.herokuapp.com/v1/user/" + data.user.id)
+          .then(response => {
+            localStorage.setItem("user",JSON.stringify(response.data))
+            alert("Livro Alugado")
+          })
+        }
+      })
+  }
 
   render() {
-    const { open, close, info, id } = this.props;
+    const { open, close, info } = this.props;
+    {console.log(info)}
     return (
       <Modal size="tiny" open={open} onClose={close}>
-        {console.log(this.props)}
         <Modal.Header>{info.title}</Modal.Header>
         <Modal.Content>
-          <Button>Alugar livro</Button>
+          <Item>
+              <ItemContent><Image src={info.thumbnail}/></ItemContent>
+              <ItemDescription>Editora: {info.publisher}</ItemDescription>   
+          </Item>
         </Modal.Content>
         <Modal.Actions>
-          <Button negative>No</Button>
           <Button
             positive
+            onClick={() => this.handleRent(info)}
             icon="checkmark"
             labelPosition="right"
-            content="Yes"
+            content="Alugar Livro"
           />
         </Modal.Actions>
       </Modal>

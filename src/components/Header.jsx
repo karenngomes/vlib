@@ -14,8 +14,6 @@ export default class HeaderMenu extends Component {
   constructor(props) {
     super(props);
     console.log(props);
-
-    this.handleClick = this.handleClick.bind(this)
   }
 
 
@@ -39,10 +37,6 @@ export default class HeaderMenu extends Component {
   }
 ];
 
-  handleClick() {
-    console.log("AQui");
-  }
-  
   trigger = (
     <span>
       <Icon name="user" /> Olá, {this.state.user.name}

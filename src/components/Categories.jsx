@@ -1,26 +1,36 @@
 import React, { Component } from "react";
 import ModalRent from "./ModalRent";
 import axios from "axios";
-import { Image, Container } from "semantic-ui-react";
+import { Image, Container, ItemContent, Item } from "semantic-ui-react";
 
 export default class Categories extends Component {
   state = {
-    category: [],
+    categories: [],
+    books: [],
     open: false,
-    infoBook: {},
-    idBook: ""
+    infoBook: {}
   };
 
   componentDidMount() {
     axios
-      .get(`http://vlibrary.herokuapp.com/v1/book/filter/calculo`)
+      .get('http://vlibrary.herokuapp.com/v1/category/')
       .then(res => {
-        this.setState({ category: res.data.items });
+        this.setState({ categories : res.data})
+
+        this.state.categories.map(category => {
+          console.log(category)
+          axios.get('http://vlibrary.herokuapp.com/v1/book/category/' + category.id)
+            .then(res => {
+              let joined = this.state.books.concat(res.data);
+              
+              this.setState({ books: joined })
+            })
+        });
       });
+    console.log(this.state.books)
   }
   handleJSON = book => {
-    this.setState({ infoBook: book.volumeInfo, open: true, idBook: book.id });
-    //console.log(this.state.infoBook);
+    this.setState({ infoBook: book, open: true });
   };
 
   close = () => {
@@ -28,24 +38,22 @@ export default class Categories extends Component {
   };
 
   render() {
-    const { category, open, infoBook, idBook } = this.state;
     return (
       <Container>
         <Image.Group
           size="small"
-          style={{ display: "flex", overflowX: "scroll" }}
         >
-          {category.map((book, index) => (
+          {this.state.books.map((book, index) => (
             <Image
               onClick={() => this.handleJSON(book)}
               key={index}
               style={{ cursor: "pointer" }}
-              src={book.volumeInfo.imageLinks.smallThumbnail}
+              src={book.thumbnail}
             />
           ))}
         </Image.Group>
-
-        <ModalRent open={open} close={this.close} info={infoBook} id={idBook} />
+          
+        <ModalRent open={this.state.open} close={this.close} info={this.state.infoBook} />
       </Container>
     );
   }
